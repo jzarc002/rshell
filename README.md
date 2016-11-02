@@ -1,4 +1,4 @@
-## rshell
+### rshell
 
 --------------
 
@@ -15,13 +15,13 @@ Description of Command Shell
 
 + Does not read in or execute comments following # symbol
 
-- Accepts Command Chaining
+- Accepts Command Chaining (echo name && mkdir test ; ls)
 
-- &&: Executes previous and then the latter command if previous is successful
+  + &&: Executes previous and then the latter command if previous is successful
 
-- ||: Executes following command only if the previous fails
+  + ||: Executes following command only if the previous fails
 
-- ; : Executes following command no matter what
+  + ; : Executes following command no matter what
 
 - Exits the terminal using the command "exit"
 
