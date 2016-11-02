@@ -13,9 +13,13 @@ Description of this VERY BASIC terminal
 -Does not read in or execute comments following # symbol
 
 -Accepts Command Chaining
+
 --&&: Executes previous and then the latter command if previous is successful
+
 --||: Executes following command only if the previous fails
+
 --; : Executes following command no matter what
+
 -Exits the terminal using the command "exit"
 
 
