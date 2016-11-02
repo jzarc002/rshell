@@ -14,11 +14,11 @@ Description of this VERY BASIC terminal
 
 -Accepts Command Chaining
 
---&&: Executes previous and then the latter command if previous is successful
+-*&&: Executes previous and then the latter command if previous is successful
 
---||: Executes following command only if the previous fails
+-||: Executes following command only if the previous fails
 
---; : Executes following command no matter what
+-; : Executes following command no matter what*
 
 -Exits the terminal using the command "exit"
 
@@ -26,5 +26,5 @@ Description of this VERY BASIC terminal
 # Known Bugs
 -The command following || is not executed if the first command is not recognize 
 
--cd Command does not work
+-No built in bash commands work
 
