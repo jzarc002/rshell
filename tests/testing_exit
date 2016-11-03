@@ -1,0 +1,6 @@
+echo exit #shouldnt exit
+echo turtle && exit # should exit out
+echo dolphin ; exit # should exit regardless
+echo oppossum || exit # not exit
+exit #simple command
+echo another && echo one more || echo two more ; exit
