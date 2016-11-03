@@ -4,6 +4,7 @@
 #include <vector>
 #include "Command.h"
 #include <string.h> 
+#include <unistd.h>
 using namespace std;
 
 int main(){
