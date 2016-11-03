@@ -35,5 +35,5 @@ Description of Command Shell
 - No variations of the word exit can be used 'Exit' or 'EXIT'
 
 - No built in bash commands work
--Commands are still executed if they use single connectors '&' and '|'
+- Commands are still executed if user enters single connectors '&' '|'
 
