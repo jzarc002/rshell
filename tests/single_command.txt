@@ -1,0 +1,18 @@
+echo hello
+echo hello #sample comment
+echo hello #echo hi && echo bye
+
+&& echo hello #echo hi && 
+&& echo hello
+&& echo hello &&
+     echo hello
+|| echo hello
+; echo hello
+|| echo hello ||
+; echo hello ;
+
+ls -a
+mkdir test
+git status
+
+exit
