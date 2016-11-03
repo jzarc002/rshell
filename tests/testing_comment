@@ -1,0 +1,9 @@
+echo name #echo another thing
+echo second #exit
+echo turtle #ls
+echo why && echo another #echo help me
+echo good ; ls #exit
+echo simple || echo yes && echo turtles #comment
+echo too much work #mkdir taco
+echo another test#nospace
+echo one more #  spaces
