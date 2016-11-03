@@ -38,16 +38,19 @@ class Command : public Base {
     public:
     bool exitflag;
     bool enter;
+    bool commentflag;
     
     Command() {
         enter = false;
         exitflag = false;
+        commentflag = false;
         flag0 = -1;
     }
     
     Command(string s) { 
         enter = false;
         exitflag = false;
+        commentflag = false;
         flag0 = -1;
         input = s;
     }
@@ -62,8 +65,23 @@ class Command : public Base {
     and store all of the commands
     */
     void getInput() {
+        
+        //GETLOGIN AND HOSTNAME
+        char* user;
+        char host[300];
+        
+        if ((gethostname(host, 100)) == -1){
+		    cout << "gethostname failed" << endl;
+    	}
+    	if ((user = getlogin()) == NULL){
+    		cout << "getlogin failed" << endl;
+    	}
+	
+	    cout << user << "@" << host;
+        
         enter = false;
         exitflag = false;
+        commentflag = false;
         
         string s;
         cout << "$ ";
@@ -105,13 +123,18 @@ class Command : public Base {
                 userCommands.push_back(tok);
             }
             else{
+                y = 0;
                 while(tok[y] == ' '){
                     ++y;
                 }
+                //cout << tok + y << endl;
                 userCommands.push_back(tok + y);
             }
             tok = strtok(NULL, "&&||;#");
         }
+        // for(unsigned i = 0; i < userCommands.size(); ++i){
+        //     cout << userCommands.at(i) << endl;
+        // }
     }
     
     
@@ -121,6 +144,39 @@ class Command : public Base {
     second command.
     */
     void callConnectors() {
+        
+        unsigned j = 0;
+        
+        /* Case for extra connectors at end and/or beginning */
+        if ( (connectors.size() >= userCommands.size()) && (connectors.empty() != true) ){
+            while(input[j] == ' '){
+                ++j;
+            }
+            if (input[j] == '#'){
+                return;
+            }
+            if(input[j] == '&' || input[j] == ';' || input[j] == '|'){
+                cout << "SYNTAX ERROR" << endl;
+                return;
+            }
+            else if(input[input.size() - 1] == '&' || input[input.size() - 1] == ';' || input[input.size() - 1] == '|'){
+                cout << "SYNTAX ERROR" << endl;
+                return;
+            }
+        }
+        
+        //Checks if first connector is a comment but there's a command before it
+        for(unsigned k = 0; k < connectors.size(); ++k){
+            if(connectors.at(k) == "COMMENT"){
+                if(k == 0){
+                    if(userCommands.at(0)[0] != '#'){
+                        //connectors.erase(connectors.begin());
+                        commentflag = true;
+                    }
+                }
+            }
+        }
+        
         unsigned i = 0;
         
         /*While there is still commands, we will enter this loop*/
@@ -132,6 +188,11 @@ class Command : public Base {
                 userCommands.erase(userCommands.begin());
             }
             /* Multiple commands */
+            else if(commentflag == true){
+                execute();
+                userCommands.erase(userCommands.begin());
+                return;
+            }
             else if(connectors.empty() != true){ 
                 
                 /* Next connector is &&*/
@@ -257,8 +318,7 @@ class Command : public Base {
         
         //Checking to see whether or not there was userInput
         if(userCommands.at(0) == ""){
-            perror("No command input");
-            exit(0);
+            return;
         }
         
         /*Further parsing the userCommand.at(0), removing spaces and 
@@ -270,6 +330,9 @@ class Command : public Base {
             string word1 = userInput.substr(0, posSpace);
             everyWord.push_back(word1);
             userInput.erase(0, everyWord.at(i).size()+1);
+        }
+        if(everyWord.size() == 0){
+            everyWord.push_back(userInput);
         }
         
         /*Creating char array charCommands of the vector everyWord 
@@ -297,7 +360,6 @@ class Command : public Base {
             if(execvp(charCommands[0], charCommands) < 0){
                 //if -1 returned, execution failed
                 flag1 = 0;
-                //cout << flag1 << endl;
                 perror("Command not recognized or execution failed");
                 exit(0);
             }
@@ -306,15 +368,11 @@ class Command : public Base {
             //Checking to see if parent process waited for child
             if(waitpid(pID, &status, 0) != pID){
                 perror("waitpid() error");
-                exit(0);
             }
         }
         //Increment first flag that connector checks
         flag1 = 1;
-        
-        //IF FIRST COMMAND RUNS, CHECK FLAGS TO SEE IF NEXT COMMAND TO RUN
     }
 };
-
 
 #endif
