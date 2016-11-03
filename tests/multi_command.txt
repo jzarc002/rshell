@@ -1,0 +1,32 @@
+echo hello && echo hi
+echo hello || echo hi
+echo hello ; echo hi
+
+&& echo hello || mkdir test1
+|| echo hello || mkdir test2
+; mkdir test3 && echo hello
+&& echo hello && echo hi && echo bye &&
+|| echo hello || echo hi || echo bye ||
+echo hello || ls -a && echo hi ||
+
+echo hello || echo hi || echo bye || mkdir test || mkdir test2 || ls || ls -a
+rm test2
+echo hello ; echo hi ; echo bye ; mkdir test ; mkdir test2 ; ls ; ls -a
+rm test
+rm test2
+echo hello && echo hi && echo bye && mkdir test && mkdir test2 && ls && ls -a
+rm test
+rm test2
+
+echo hello || echo hi && ls -a || mkdir test2 ; ls -a
+rm test2
+ls -a; echo hello && mkdir test || echo world; git status
+rm test
+mkdir test && echo hello ; mkdir test2 || echo hello || echo bye
+rm test
+rm test2
+mkdir test ; ls -a || echo hello && echo hi ; echo bye
+rm test
+
+    echo hey ||     echo bye&& echo hi ; echo world
+echo hello ;    echo bye &&echo hi;echo world
